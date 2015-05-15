@@ -33,3 +33,4 @@ angular.module('app', ['ngRoute']).config(['$routeProvider', function ($routePro
 			redirectTo: '/'
 		});
 }]);
+

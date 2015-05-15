@@ -3,6 +3,6 @@ angular.module('app').directive('youtube', function() {
 	    scope: {
 	    	code:'@code'
 	    },
-	    template: '<object id="object-post" width="300" height="200" data="http://www.youtube.com/v/{{code}}" type="application/x-shockwave-flash"></object>'
+	    template: '<object id="youtube-post" data="http://www.youtube.com/v/{{code}}" type="application/x-shockwave-flash"></object>'
 	  };
 	});

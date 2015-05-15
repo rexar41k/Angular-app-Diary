@@ -1,1 +1,54 @@
-<h2>EDIT page!!!</h2>
+<div ng-controller="EventsCtrl">
+
+<h2>Редактирование события</h2>
+<form>
+<p>
+    <span class="create-h1">Название события * :</span><br>
+    <input id="eventName" type="text" value="{{result.name}}" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
+</p>
+<p>
+    <span class="create-h1">Описание события * :</span><br>
+    <button ng-click="showRedactor = !showRedactor; $event.preventDefault()" ng-hide="showRedactor"> Показать редактор </button>
+    <div ng-show="showRedactor">
+       <input type="checkbox" ng-model="underline"> underline
+       <input type="checkbox" ng-model="bold"> bold
+       <input type="checkbox" ng-model="italic"> italic<br>
+       <span class="create-h1">Размер шрифта :</span><select ng-model="mySize" ng-options="size for size in sizes"></select><br>
+       <input type="radio" name="color" value="red" ng-model="color">red
+       <input type="radio" name="color" value="green" ng-model="color">green
+       <input type="radio" name="color" value="blue" ng-model="color">blue<br>
+    </div>
+    <textarea ng-class="{underline: underline, bold: bold, italic: italic}" ng-style="{'font-size':mySize, color: color}"
+    id="myTextArea" rows="5" cols="20" name="description" 
+    placeholder="Описание события"
+    minlength="20" maxlength="100" required>{{result.description}}</textarea>
+</p>
+<p><span class="create-h1">Дата *: </span><input type="text" ng-model="date" my-datepicker></p>
+<p><span class="create-h1">Отношение :</span>
+  <select name="position" id="eventRatio">
+    <option>Нейтральное</option>
+    <option>Положительное</option>
+    <option>Отрицательное</option>
+  </select>
+
+<p><span class="create-h1">Видео события:</span>
+    <input id="inputVideo" type="text" placeholder="вставьте URL видео" value="{{result.video}}" 
+    	   ng-model="result.video" 
+    	   ng-init="getYoutube(result.video)"
+    	   ng-change="getYoutube(result.video)"> 
+</p>
+
+<youtube ng-if="newVideo" code='{{newVideo}}'></youtube>
+
+<button ng-click="createMap(); show = !show; $event.preventDefault()" ng-hide="show"> Отметить место на карте </button><br>
+<div ng-show="show">
+    <span class="create-h1">Выберите место на карте :</span>
+    <input id="map-place" type="text" value="{{map}}" ng-show="map" ng-model="map" readonly>
+    <div id="maping"></div>
+</div>
+
+    <button type="submit" id="save-event">Отправить</button>
+</form>
+
+</div>
+
