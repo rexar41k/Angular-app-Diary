@@ -1,0 +1,6 @@
+<h2>Список событий</h2>
+<hr>
+Фильтр:<input type="text" ng-model="query">
+<ul>
+	<li ng-repeat="event in eventFilter = ( MainCtrl.events | filter:query )"> {{ event.name }} - {{ event.description }} <button ng-click="removeEvent(event, $index)"> Удалить </button></li>
+</ul>
