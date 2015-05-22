@@ -50,17 +50,17 @@
 <youtube ng-if="newVideo" code='{{newVideo}}'></youtube>
 
 <div ng-if="result.map == undefined">
-  <button ng-click="createMap(); show = !show; $event.preventDefault()" 
+  <button ng-click="$event.preventDefault(); createMap(result); show = !show " 
           ng-hide="show"> Отметить место на карте </button><br>
   <div ng-show="show">
       <span class="create-h1">Выберите место на карте :</span>
-      <input id="map-place" type="text" value="{{map}}" ng-show="map" ng-model="map" readonly>
+      <input id="map-place" type="text" ng-show="map" ng-model="result.map" readonly>
       <div id="maping"></div>
   </div>
 </div>
 
 <div ng-if="result.map !== undefined">
-  <div ng-init="createMap(result.map)">
+  <div ng-init="createMap(result)">
       <span class="create-h1">Место на карте :</span>
       <input id="map-place" type="text" ng-model="result.map" readonly>
       <div id="maping"></div>

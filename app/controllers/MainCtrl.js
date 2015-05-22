@@ -23,11 +23,11 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
   	};
 
 	$scope.createMap = function (result) {
-    console.log(result);
-      if (result !== undefined && result !== 'undefined') {
-        var resultLocation = result.split(',');
-      } else {
+
+      if (result == undefined || result.map == undefined) {
         var resultLocation = ['50', '36.3'];
+      } else {
+        var resultLocation = result.map.split(',');
       }    
 
       var mapOptions = {
@@ -39,13 +39,20 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
       var map = new google.maps.Map(document.getElementById("maping"), mapOptions);
 
       var myLatlng = new google.maps.LatLng(resultLocation[0], resultLocation[1]);
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map
-        });
+
+      var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map
+      });
 
       var placeMarker = function (location) {
+
+        if (result == undefined) {
           $scope.map = location.toUrlValue();
+        } else{
+          result.map = location.toUrlValue();
+        }
+          
             if ( marker ) {
               marker.setPosition(location);
             } else {
