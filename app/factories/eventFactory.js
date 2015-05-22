@@ -1,35 +1,11 @@
 angular.module('app').factory('eventFactory', function () {
 	var service = {};
 
-	var events = [
-		// {
-		// 	name: 'Event',
-		// 	description: 'Add tests',
-		// 	date: '11.12.13',
-		// 	rate: 'Нейтральное',
-		// 	video: 'https://www.youtube.com/watch?v=v_qPcAvB3Pk',
-		// 	map: '53.031949,36.272736',
-		// 	id: 5031
-		// },
-		// {
-		// 	name: 'People',
-		// 	description: 'Add debugger',
-		// 	date: '11.12.13',
-		// 	rate: 'Нейтральное',
-		// 	video: '',
-		// 	map: '53.031949,31.272736',
-		// 	id: 5032
-		// },
-		// {
-		// 	name: 'Eggs',
-		// 	description: 'Fix bugs',
-		// 	date: '11.12.13',
-		// 	rate: 'Нейтральное',
-		// 	video: 'https://www.youtube.com/watch?v=v_qPcAvB3Pk',
-		// 	map: '58.031949,38.272736',
-		// 	id: 5033
-		// }
-	];
+	var events = [];
+	
+    if(localStorage.getItem('collect')) {
+        events = JSON.parse(localStorage.getItem('collect'));
+    }
 
 	service.getEvents = function () {
 		return events;
@@ -50,6 +26,7 @@ angular.module('app').factory('eventFactory', function () {
 		if (newEvent.name && newEvent.description && newEvent.date) {
 			events.push(newEvent);
 			location.hash = "#/event/add/success";
+			localStorage.setItem('collect', JSON.stringify(events));
 		}
 	};
 
