@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute']).config(['$routeProvider', function ($routeProvider) {
+angular.module('app', ['ngRoute']).config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
 	$routeProvider
 		.when('/',{
@@ -29,8 +29,14 @@ angular.module('app', ['ngRoute']).config(['$routeProvider', function ($routePro
 			templateUrl:'app/views/places.html',
 			controller:'MainCtrl'
 		})
+		.when('/event/add/success',{
+			templateUrl:'app/views/success.html',
+			controller:'MainCtrl'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
+
+		// $locationProvider.html5Mode(true);
 }]);
 

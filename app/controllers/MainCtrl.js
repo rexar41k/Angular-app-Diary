@@ -1,6 +1,10 @@
 angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
 	this.events = eventFactory.getEvents();
 
+  $scope.addEvent = function (name, description, date, rate, video, map) {
+    eventFactory.addEvent(name, description, date, rate, video, map);
+  };
+
 	$scope.getYoutube = function (result) {
     if (result === '') {
       $scope.newVideo = '';
@@ -18,33 +22,44 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
 		}
   	};
 
-	$scope.createMap = function () {
-          var mapOptions = {
-            center: new google.maps.LatLng(50, 36.3),
-            zoom: 10,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-       
-          var map = new google.maps.Map(document.getElementById("maping"), mapOptions);
+	$scope.createMap = function (result) {
+    console.log(result);
+      if (result !== undefined && result !== 'undefined') {
+        var resultLocation = result.split(',');
+      } else {
+        var resultLocation = ['50', '36.3'];
+      }    
 
-          var marker = $scope.map;
-
-          var placeMarker = function (location) {
-              $scope.map = location.toUrlValue();
-                if ( marker ) {
-                  marker.setPosition(location);
-                } else {
-                  marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                  });
-                }
-          };
-
-          google.maps.event.addListener(map, 'click', function(event) {
-              placeMarker(event.latLng);
-          });
+      var mapOptions = {
+        center: new google.maps.LatLng(resultLocation[0], resultLocation[1]),
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       };
+   
+      var map = new google.maps.Map(document.getElementById("maping"), mapOptions);
+
+      var myLatlng = new google.maps.LatLng(resultLocation[0], resultLocation[1]);
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map
+        });
+
+      var placeMarker = function (location) {
+          $scope.map = location.toUrlValue();
+            if ( marker ) {
+              marker.setPosition(location);
+            } else {
+              marker = new google.maps.Marker({
+                position: location,
+                map: map,
+              });
+            }
+      };
+
+      google.maps.event.addListener(map, 'click', function(event) {
+          placeMarker(event.latLng);
+      });
+  };
 
   $scope.sizes = ['14px', '20px', '24px'];
   $scope.mySize = $scope.sizes[0];
@@ -63,7 +78,7 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
           allEvents = eventFactory.getEvents();
       function createMarkers() {
           for (var i = 0; i < allEvents.length; i++) {
-              if (allEvents[i].map !== '') {
+              if (allEvents[i].map !== '' && allEvents[i].map !== undefined) {
                   var marker = allEvents[i].map.split(','),
                       name = allEvents[i].name,
                       url = '#/event/' + allEvents[i].id;

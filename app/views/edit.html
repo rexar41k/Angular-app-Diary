@@ -1,6 +1,6 @@
 <div ng-controller="EventsCtrl">
 
-<h2>Редактирование события</h2>
+<h2>Редактирование события № {{result.id}}</h2>
 <form>
 <p>
     <span class="create-h1">Название события * :</span><br>
@@ -23,31 +23,51 @@
     placeholder="Описание события"
     minlength="20" maxlength="100" required>{{result.description}}</textarea>
 </p>
-<p><span class="create-h1">Дата *: </span><input type="text" ng-model="date" my-datepicker></p>
+<p><span class="create-h1">Дата *: </span><input type="text" ng-model="result.date" my-datepicker></p>
 <p><span class="create-h1">Отношение :</span>
-  <select name="position" id="eventRatio">
+  <select name="position" id="eventRatio" ng-model="result.rate">
     <option>Нейтральное</option>
     <option>Положительное</option>
     <option>Отрицательное</option>
   </select>
 
-<p><span class="create-h1">Видео события:</span>
-    <input id="inputVideo" type="text" placeholder="вставьте URL видео" value="{{result.video}}" 
-    	   ng-model="result.video" 
-    	   ng-init="getYoutube(result.video)"
-    	   ng-change="getYoutube(result.video)"> 
+<p>
+  <div ng-if="result.video !== undefined">
+    <span class="create-h1">Видео события:</span>
+        <input id="inputVideo" type="text" placeholder="вставьте URL видео"
+        	   ng-model="result.video" 
+        	   ng-init="getYoutube(result.video)"
+        	   ng-change="getYoutube(result.video)"> 
+  </div>
+  <div ng-if="result.video == undefined">
+  <span class="create-h1">Видео события:</span>
+      <input id="inputVideo" type="text" placeholder="вставьте URL видео"
+           ng-model="result.video"
+           ng-change="getYoutube(result.video)"> 
+</div>
 </p>
 
 <youtube ng-if="newVideo" code='{{newVideo}}'></youtube>
 
-<button ng-click="createMap(); show = !show; $event.preventDefault()" ng-hide="show"> Отметить место на карте </button><br>
-<div ng-show="show">
-    <span class="create-h1">Выберите место на карте :</span>
-    <input id="map-place" type="text" value="{{map}}" ng-show="map" ng-model="map" readonly>
-    <div id="maping"></div>
+<div ng-if="result.map == undefined">
+  <button ng-click="createMap(); show = !show; $event.preventDefault()" 
+          ng-hide="show"> Отметить место на карте </button><br>
+  <div ng-show="show">
+      <span class="create-h1">Выберите место на карте :</span>
+      <input id="map-place" type="text" value="{{map}}" ng-show="map" ng-model="map" readonly>
+      <div id="maping"></div>
+  </div>
 </div>
 
-    <button type="submit" id="save-event">Отправить</button>
+<div ng-if="result.map !== undefined">
+  <div ng-init="createMap(result.map)">
+      <span class="create-h1">Место на карте :</span>
+      <input id="map-place" type="text" ng-model="result.map" readonly>
+      <div id="maping"></div>
+  </div>
+</div>
+
+    <button type="submit" id="save-event">Изменить событие</button>
 </form>
 
 </div>
