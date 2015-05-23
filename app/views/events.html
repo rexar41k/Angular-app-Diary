@@ -2,7 +2,7 @@
 <hr>
 Фильтр:<input type="text" ng-model="query">
 <ul>
-	<li ng-repeat="event in eventFilter = ( MainCtrl.events | filter:query )">
+	<li ng-repeat="event in eventFilter = ( events | filter:query ) track by $index">
 	<a ng-href="#/event/{{ event.id }}">{{ event.name }}</a> - {{ event.description }}
 	<a ng-href="#/event/edit/{{ event.id }}"><button> Редактировать </button></a>
 	<button ng-click="removeEvent(event, $index)"> Удалить </button>

@@ -11,6 +11,14 @@ angular.module('app').factory('eventFactory', function () {
 		return events;
 	};
 
+	service.removeEvent = function (event, index) {
+		var del = confirm('Хотите удалить событие: ' + event.name + '?');
+  		if(del) {
+  			events.splice(index, 1);
+  			localStorage.setItem('events', JSON.stringify(events));
+  		}
+	};
+
 	service.addEvent = function (name, description, date, rate, video, map) {
 
 		var newEvent = {
@@ -28,23 +36,6 @@ angular.module('app').factory('eventFactory', function () {
 			location.hash = "#/event/add/success";
 			localStorage.setItem('events', JSON.stringify(events));
 		}
-	};
-
-	service.editEvent = function (result) {
-
-		console.log(result);
-
-		var getIndexBy = function (array, value) {
-		    for (var i = 0; i < array.length; i++) {
-		        if (array[i].id === value) {
-		            return i;
-		        }
-		    }
-		};
-
-		// events[getIndexBy(events, result.id)] = result;
-		// console.log(events[getIndexBy(events, result.id)]);
-		
 	};
 
 	return service;

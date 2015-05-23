@@ -1,12 +1,13 @@
-angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
-	this.events = eventFactory.getEvents();
+angular.module('app').controller('MainCtrl',['$scope', 'eventFactory', 'placesFactory',
+ function ($scope, eventFactory, placesFactory) {
+	$scope.events = eventFactory.getEvents();
+
+  $scope.$watch('events', function() {
+    localStorage.setItem('events', JSON.stringify($scope.events)); 
+  }, true);
 
   $scope.addEvent = function (name, description, date, rate, video, map) {
     eventFactory.addEvent(name, description, date, rate, video, map);
-  };
-
-  $scope.editEvent = function (editingEvent) {
-    eventFactory.editEvent(editingEvent);
   };
 
 	$scope.getYoutube = function (result) {
@@ -20,18 +21,15 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
 	};
 
 	$scope.removeEvent = function (event, index) {
-		var del = confirm('Хотите удалить событие: ' + event.name + '?');
-		if(del) {
-			eventFactory.getEvents().splice(index, 1);
-		}
-  	};
+    eventFactory.removeEvent(event, index);
+  };
 
 	$scope.createMap = function (result) {
-
-      if (result == undefined || result.map == undefined) {
-        var resultLocation = ['50', '36.3'];
+    var resultLocation;
+    if (result === undefined || result.map === undefined) {
+        resultLocation = ['50', '36.3'];
       } else {
-        var resultLocation = result.map.split(',');
+        resultLocation = result.map.split(',');
       }    
 
       var mapOptions = {
@@ -51,7 +49,7 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
 
       var placeMarker = function (location) {
 
-        if (result == undefined) {
+        if (result === undefined) {
           $scope.map = location.toUrlValue();
         } else{
           result.map = location.toUrlValue();
@@ -76,45 +74,6 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
   $scope.mySize = $scope.sizes[0];
 
   $scope.showPlaces = function () {
-      var myLatlng = new google.maps.LatLng(50, 36.3);
-      var mapOptions = {
-        zoom: 2,
-        center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-      };
-
-      var map = new google.maps.Map(document.getElementById("maping"), mapOptions);
-      // console.log(eventFactory.getEvents());
-      var markers = [],
-          allEvents = eventFactory.getEvents();
-      function createMarkers() {
-          for (var i = 0; i < allEvents.length; i++) {
-              if (allEvents[i].map !== '' && allEvents[i].map !== undefined) {
-                  var marker = allEvents[i].map.split(','),
-                      name = allEvents[i].name,
-                      url = '#/event/' + allEvents[i].id;
-                  var newMarker = {x: marker[0], y: marker[1], name: name, url: url};
-                  markers.push(newMarker);
-              }
-          }
-      }
-
-      function createMarkerList() {
-        for (var i = 0; i < markers.length; i++) {
-
-              var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(markers[i].x, markers[i].y),
-                title: markers[i].name,
-                url: markers[i].url,
-                map: map
-              });
-
-              google.maps.event.addListener(marker, 'click', function() {
-                window.location.href = this.url;
-              });
-        }
-      }
-      createMarkers();
-      createMarkerList();
+    placesFactory.showPlaces();
   };
-});
+}]);

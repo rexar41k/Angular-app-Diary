@@ -1,7 +1,7 @@
 <div ng-controller="EventsCtrl">
 
 <h2>Редактирование события № {{result.id}}</h2>
-<form ng-submit="editEvent(result)">
+<form>
 <p>
     <span class="create-h1">Название события * :</span><br>
     <input id="eventName" type="text" ng-model="result.name" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
@@ -66,8 +66,6 @@
       <div id="maping"></div>
   </div>
 </div>
-
-    <button type="submit" id="save-event">Изменить событие</button>
 </form>
 
 </div>
