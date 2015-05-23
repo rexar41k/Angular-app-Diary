@@ -5,6 +5,10 @@ angular.module('app').controller('MainCtrl', function ($scope, eventFactory) {
     eventFactory.addEvent(name, description, date, rate, video, map);
   };
 
+  $scope.editEvent = function (editingEvent) {
+    eventFactory.editEvent(editingEvent);
+  };
+
 	$scope.getYoutube = function (result) {
     if (result === '') {
       $scope.newVideo = '';

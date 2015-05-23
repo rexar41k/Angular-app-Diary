@@ -1,10 +1,10 @@
 <div ng-controller="EventsCtrl">
 
 <h2>Редактирование события № {{result.id}}</h2>
-<form>
+<form ng-submit="editEvent(result)">
 <p>
     <span class="create-h1">Название события * :</span><br>
-    <input id="eventName" type="text" value="{{result.name}}" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
+    <input id="eventName" type="text" ng-model="result.name" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
 </p>
 <p>
     <span class="create-h1">Описание события * :</span><br>
@@ -21,7 +21,7 @@
     <textarea ng-class="{underline: underline, bold: bold, italic: italic}" ng-style="{'font-size':mySize, color: color}"
     id="myTextArea" rows="5" cols="20" name="description" 
     placeholder="Описание события"
-    minlength="20" maxlength="100" required>{{result.description}}</textarea>
+    minlength="20" maxlength="100" ng-model="result.description" required>{{result.description}}</textarea>
 </p>
 <p><span class="create-h1">Дата *: </span><input type="text" ng-model="result.date" my-datepicker></p>
 <p><span class="create-h1">Отношение :</span>

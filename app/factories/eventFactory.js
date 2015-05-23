@@ -2,9 +2,9 @@ angular.module('app').factory('eventFactory', function () {
 	var service = {};
 
 	var events = [];
-	
-    if(localStorage.getItem('collect')) {
-        events = JSON.parse(localStorage.getItem('collect'));
+
+    if(localStorage.getItem('events')) {
+        events = JSON.parse(localStorage.getItem('events'));
     }
 
 	service.getEvents = function () {
@@ -26,8 +26,25 @@ angular.module('app').factory('eventFactory', function () {
 		if (newEvent.name && newEvent.description && newEvent.date) {
 			events.push(newEvent);
 			location.hash = "#/event/add/success";
-			localStorage.setItem('collect', JSON.stringify(events));
+			localStorage.setItem('events', JSON.stringify(events));
 		}
+	};
+
+	service.editEvent = function (result) {
+
+		console.log(result);
+
+		var getIndexBy = function (array, value) {
+		    for (var i = 0; i < array.length; i++) {
+		        if (array[i].id === value) {
+		            return i;
+		        }
+		    }
+		};
+
+		// events[getIndexBy(events, result.id)] = result;
+		// console.log(events[getIndexBy(events, result.id)]);
+		
 	};
 
 	return service;
