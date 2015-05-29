@@ -4,7 +4,7 @@
 <form>
 <p>
     <span class="create-h1">Название события * :</span><br>
-    <input id="eventName" type="text" ng-model="result.name" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
+    <input id="eventName" type="text" name="name" placeholder="Название события" minlength="3" maxlength="20" required value="{{result.name}}">
 </p>
 <p>
     <span class="create-h1">Описание события * :</span><br>
@@ -21,11 +21,11 @@
     <textarea ng-class="{underline: underline, bold: bold, italic: italic}" ng-style="{'font-size':mySize, color: color}"
     id="myTextArea" rows="5" cols="20" name="description" 
     placeholder="Описание события"
-    minlength="20" maxlength="100" ng-model="result.description" required>{{result.description}}</textarea>
+    minlength="20" maxlength="100" required>{{result.description}}</textarea>
 </p>
-<p><span class="create-h1">Дата *: </span><input type="text" ng-model="result.date" my-datepicker></p>
+<p><span class="create-h1">Дата *: </span><input type="text" value="{{result.date}}" my-datepicker></p>
 <p><span class="create-h1">Отношение :</span>
-  <select name="position" id="eventRatio" ng-model="result.rate">
+  <select name="position" id="eventRatio" value="{{result.rate}}">
     <option>Нейтральное</option>
     <option>Положительное</option>
     <option>Отрицательное</option>
@@ -35,15 +35,17 @@
   <div ng-if="result.video !== undefined">
     <span class="create-h1">Видео события:</span>
         <input id="inputVideo" type="text" placeholder="вставьте URL видео"
-        	   ng-model="result.video" 
+        	   value="{{result.video}}" 
         	   ng-init="getYoutube(result.video)"
         	   ng-change="getYoutube(result.video)"> 
   </div>
   <div ng-if="result.video == undefined">
   <span class="create-h1">Видео события:</span>
       <input id="inputVideo" type="text" placeholder="вставьте URL видео"
-           ng-model="result.video"
-           ng-change="getYoutube(result.video)"> 
+           value="{{result.video}}"
+           ng-change="getYoutube(result.video)">
+           <!-- разобраться с верхним ng-change -->
+           <!-- проблема в том что result.video при изменении НЕ СУЩЕСТВУЕТ -->
 </div>
 </p>
 
@@ -54,7 +56,7 @@
           ng-hide="show"> Отметить место на карте </button><br>
   <div ng-show="show">
       <span class="create-h1">Выберите место на карте :</span>
-      <input id="map-place" type="text" ng-show="map" ng-model="result.map" readonly>
+      <input id="map-place" type="text" ng-show="map" value="{{result.map}}" readonly>
       <div id="maping"></div>
   </div>
 </div>
@@ -62,7 +64,7 @@
 <div ng-if="result.map !== undefined">
   <div ng-init="createMap(result)">
       <span class="create-h1">Место на карте :</span>
-      <input id="map-place" type="text" ng-model="result.map" readonly>
+      <input id="map-place" type="text" value="{{result.map}}" readonly>
       <div id="maping"></div>
   </div>
 </div>
