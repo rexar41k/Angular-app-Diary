@@ -1,0 +1,4 @@
+# folder bower components
+bower_components/
+# folder node modules
+node_modules/
