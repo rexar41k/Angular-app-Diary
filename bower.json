@@ -1,0 +1,20 @@
+{
+  "name": "www",
+  "version": "1.0.0",
+  "homepage": "https://github.com/rexar41k/Angular-app-Diary",
+  "authors": [
+    "Sergey Sirenko <s.sirenko88@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.0",
+    "angular": "~1.4.0",
+    "jquery-ui": "~1.11.4",
+    "jquery": "~2.1.4",
+    "lodash": "~3.9.3"
+  }
+}
