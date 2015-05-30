@@ -33,6 +33,10 @@ angular.module('app', ['ngRoute']).config(['$routeProvider', '$locationProvider'
 			templateUrl:'app/views/success.html',
 			controller:'MainCtrl'
 		})
+		.when('/event/editing/success',{
+			templateUrl:'app/views/success-edit.html',
+			controller:'MainCtrl'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});

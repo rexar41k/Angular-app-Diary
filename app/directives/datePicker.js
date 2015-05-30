@@ -1,5 +1,6 @@
 angular.module('app').directive('myDatepicker', function () {
     return {
+        require : 'ngModel',
         link : function (scope, element, attrs, ngModelCtrl) {
             $(function(){
                 element.datepicker({

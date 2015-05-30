@@ -2,12 +2,12 @@ angular.module('app').controller('MainCtrl',['$scope', 'eventFactory', 'placesFa
  function ($scope, eventFactory, placesFactory) {
 	$scope.events = eventFactory.getEvents();
 
-  $scope.$watch('events', function() {
-    localStorage.setItem('events', JSON.stringify($scope.events)); 
-  }, true);
-
   $scope.addEvent = function (name, description, date, rate, video, map) {
     eventFactory.addEvent(name, description, date, rate, video, map);
+  };
+
+  $scope.editEvent = function (result) {
+    eventFactory.editEvent(result);
   };
 
 	$scope.getYoutube = function (result) {

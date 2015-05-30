@@ -3,9 +3,9 @@ angular.module('app').factory('eventFactory', function () {
 
 	var events = [];
 
-    if(localStorage.getItem('events')) {
-        events = JSON.parse(localStorage.getItem('events'));
-    }
+  if(localStorage.getItem('events')) {
+      events = JSON.parse(localStorage.getItem('events'));
+  }
 
 	service.getEvents = function () {
 		return events;
@@ -21,22 +21,42 @@ angular.module('app').factory('eventFactory', function () {
 
 	service.addEvent = function (name, description, date, rate, video, map) {
 
-		var newEvent = {
-			id: _.uniqueId(),
-			name: name,
-			description: description,
-			date: date,
-			rate: rate,
-			video: video,
-			map: map,
-		};
+		if (name && description && date) {
 
-		if (newEvent.name && newEvent.description && newEvent.date) {
+      var newEvent = {
+        id: _.uniqueId(),
+        name: name,
+        description: description,
+        date: date,
+        rate: rate,
+        video: video,
+        map: map,
+      };
+
 			events.push(newEvent);
 			location.hash = "#/event/add/success";
 			localStorage.setItem('events', JSON.stringify(events));
 		}
 	};
+
+  service.editEvent = function (result) {
+    if (result.name && result.description && result.date) {
+      var editEvent = {
+        id: result.id,
+        name: result.name,
+        description: result.description,
+        date: result.date,
+        rate: result.rate,
+        video: result.video,
+        map: result.map,
+      };
+
+      events.splice(parseFloat(editEvent.id) - 1, 1, editEvent);
+
+      location.hash = "#/event/editing/success";
+      localStorage.setItem('events', JSON.stringify(events));
+    } 
+  };
 
 	return service;
 });
