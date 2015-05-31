@@ -23,27 +23,29 @@ angular.module('app').directive('googleMap', function() {
                 map: map
             });
 
-            var placeMarker = function (location) {
+            if(!(/^#\/event\/\d+$/gmi.test(location.hash))) {
+              var placeMarker = function (location) {
 
-            if (scope.result === undefined) {
-              scope.map = location.toUrlValue();
-            } else{
-              scope.result.map = location.toUrlValue();
-            }
-              
-                if ( marker ) {
-                  marker.setPosition(location);
-                } else {
-                  marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                  });
-                }
-          };
+              if (scope.result === undefined) {
+                scope.map = location.toUrlValue();
+              } else{
+                scope.result.map = location.toUrlValue();
+              }
+                
+                  if ( marker ) {
+                    marker.setPosition(location);
+                  } else {
+                    marker = new google.maps.Marker({
+                      position: location,
+                      map: map,
+                    });
+                  }
+            };
 
-          google.maps.event.addListener(map, 'click', function(event) {
-              placeMarker(event.latLng);
-          });
+            google.maps.event.addListener(map, 'click', function(event) {
+                placeMarker(event.latLng);
+            });
+          }
         }
     };
   });

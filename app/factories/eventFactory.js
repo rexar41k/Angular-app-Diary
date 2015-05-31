@@ -1,6 +1,6 @@
 angular.module('app').factory('eventFactory', function () {
 	var service = {};
-
+  
 	var events = [];
 
   if(localStorage.getItem('events')) {
