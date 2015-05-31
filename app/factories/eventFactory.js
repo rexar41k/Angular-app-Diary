@@ -32,18 +32,18 @@ angular.module('app').factory('eventFactory', function () {
   		}
 	};
 
-	service.addEvent = function (name, description, date, rate, video, map) {
+	service.addEvent = function (event) {
 
-		if (name && description && date) {
+		if (event.name && event.description && event.date) {
 
       var newEvent = {
         id: this.uniqueId(),
-        name: name,
-        description: description,
-        date: date,
-        rate: rate,
-        video: video,
-        map: map,
+        name: event.name,
+        description: event.description,
+        date: event.date,
+        rate: event.rate,
+        video: event.video,
+        map: event.map,
       };
 
 			events.push(newEvent);

@@ -1,8 +1,8 @@
 <h2>Создание события</h2>
-<form ng-submit="addEvent(name, description, date, rate, video, map)">
+<form ng-submit="addEvent(newEvent)">
 <p>
     <span class="create-h1">Название события * :</span><br>
-    <input id="eventName" type="text" ng-model="name" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
+    <input id="eventName" type="text" ng-model="newEvent.name" name="name" placeholder="Название события" minlength="3" maxlength="20" required>
 </p>
 <p>
     <span class="create-h1">Описание события * :</span><br>
@@ -19,13 +19,13 @@
     <textarea ng-class="{underline: underline, bold: bold, italic: italic}" 
               ng-style="{'font-size':mySize, color: color}"
               id="myTextArea" rows="5" cols="20" name="description"
-              placeholder="Описание события" ng-model="description"
+              placeholder="Описание события" ng-model="newEvent.description"
               minlength="20" maxlength="100" required>
     </textarea>
 </p>
-<p><span class="create-h1">Дата *: </span><input type="text" ng-model="date" my-datepicker required></p>
+<p><span class="create-h1">Дата *: </span><input type="text" ng-model="newEvent.date" my-datepicker required></p>
 <p><span class="create-h1">Отношение :</span>
-  <select name="position" id="eventRatio" ng-model="rate">
+  <select name="position" id="eventRatio" ng-model="newEvent.rate">
     <option>Нейтральное</option>
     <option>Положительное</option>
     <option>Отрицательное</option>
@@ -33,7 +33,7 @@
 <p>
     <span class="create-h1">Добавить видео :</span>
     <input id="inputVideo" type="text" placeholder="вставьте URL видео" 
-            ng-model="video" 
+            ng-model="newEvent.video" 
             ng-pattern="/youtube/" 
             ng-change="getYoutube()"> 
 </p>
@@ -42,12 +42,9 @@
 <button ng-click="show = !show; $event.preventDefault()" ng-hide="show"> Отметить место на карте </button><br>
 <div ng-show="show">
     <span class="create-h1">Выберите место на карте :</span>
-    <input id="map-place" type="text" ng-show="map" ng-model="map" value="50" readonly>
+    <input id="map-place" type="text" ng-show="map" ng-model="newEvent.map" value="50" readonly>
     <div google-map id="maping"></div>
 </div>
 
     <button type="submit" id="save-event">Отправить</button>
 </form>
-
-
-<div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent" ta-disabled='disabled'></div>

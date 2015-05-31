@@ -4,7 +4,9 @@
   <p>Описание: {{result.description}}</p>
   <p>Дата: {{result.date}}</p>
   <p ng-if="result.rate !== undefined">Отношение: {{result.rate}}</p>
-  <p ng-if="result.video !== undefined">Видео: {{result.video}}</p>
+  <p ng-if="result.video !== undefined">Видео:
+  <p ng-init="getYoutube(result.video)"><youtube ng-if="newVideo" code='{{newVideo}}'></youtube></p>
+  </p>
   <p ng-if="result.map !== undefined">Координаты:{{result.map}}<p>
     <div google-map id="maping"></div>
   </p></p>

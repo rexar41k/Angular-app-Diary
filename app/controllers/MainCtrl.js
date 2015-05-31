@@ -2,8 +2,8 @@ angular.module('app').controller('MainCtrl',['$scope', 'eventFactory', 'placesFa
  function ($scope, eventFactory, placesFactory) {
 	$scope.events = eventFactory.getEvents();
 
-  $scope.addEvent = function (name, description, date, rate, video, map) {
-    eventFactory.addEvent(name, description, date, rate, video, map);
+  $scope.addEvent = function (newEvent) {
+    eventFactory.addEvent(newEvent);
   };
 
   $scope.editEvent = function (result) {
@@ -16,7 +16,7 @@ angular.module('app').controller('MainCtrl',['$scope', 'eventFactory', 'placesFa
     } else if (result) {
       $scope.newVideo = result.split('?v=')[1];
     } else {
-      $scope.newVideo = $scope.video.split('?v=')[1];
+      $scope.newVideo = $scope.newEvent.video.split('?v=')[1];
     }
 	};
 

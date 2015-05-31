@@ -1,14 +1,14 @@
 angular.module('app').controller('TimeCtrl', function ($scope, $timeout) {
 	$scope.today = new Date(); //today
 
-    $scope.clock = "Ждем часы..."; // initialise the time variable
+    $scope.clock = "Ждем часы...";
     $scope.tickInterval = 1000;//ms
 
     var tick = function() {
-        $scope.clock = Date.now();// get the current time
-        $timeout(tick, $scope.tickInterval); // reset the timer
+        $scope.clock = Date.now();// получаем текущее время
+        $timeout(tick, $scope.tickInterval); // перезапуск таймера
     };
 
-    // Start the timer
+    // Старт таймера
     $timeout(tick, $scope.tickInterval);
 });

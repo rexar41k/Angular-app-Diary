@@ -10,7 +10,6 @@ angular.module('app').factory('placesFactory', function (eventFactory) {
       };
 
       var map = new google.maps.Map(document.getElementById("maping"), mapOptions);
-      // console.log(eventFactory.getEvents());
       var markers = [],
           allEvents = eventFactory.getEvents();
       function createMarkers() {
