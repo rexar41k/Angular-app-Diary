@@ -39,11 +39,11 @@
 </p>
 <youtube ng-if="newVideo" code='{{newVideo}}'></youtube>
 
-<button ng-click="createMap(); show = !show; $event.preventDefault()" ng-hide="show"> Отметить место на карте </button><br>
+<button ng-click="show = !show; $event.preventDefault()" ng-hide="show"> Отметить место на карте </button><br>
 <div ng-show="show">
     <span class="create-h1">Выберите место на карте :</span>
     <input id="map-place" type="text" ng-show="map" ng-model="map" value="50" readonly>
-    <div id="maping"></div>
+    <div google-map id="maping"></div>
 </div>
 
     <button type="submit" id="save-event">Отправить</button>

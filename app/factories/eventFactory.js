@@ -7,6 +7,19 @@ angular.module('app').factory('eventFactory', function () {
       events = JSON.parse(localStorage.getItem('events'));
   }
 
+  service.uniqueId = (function () {
+    var counter;
+    if (localStorage.getItem('counter')) {
+      counter = localStorage.getItem('counter');
+    } else {
+      counter = 0;
+    }
+    
+    return function () {
+      return ++counter;
+    };
+  })();
+
 	service.getEvents = function () {
 		return events;
 	};
@@ -24,7 +37,7 @@ angular.module('app').factory('eventFactory', function () {
 		if (name && description && date) {
 
       var newEvent = {
-        id: _.uniqueId(),
+        id: this.uniqueId(),
         name: name,
         description: description,
         date: date,
@@ -36,6 +49,7 @@ angular.module('app').factory('eventFactory', function () {
 			events.push(newEvent);
 			location.hash = "#/event/add/success";
 			localStorage.setItem('events', JSON.stringify(events));
+      localStorage.setItem('counter', newEvent.id);
 		}
 	};
 
@@ -51,7 +65,7 @@ angular.module('app').factory('eventFactory', function () {
         map: result.map,
       };
 
-      events.splice(parseFloat(editEvent.id) - 1, 1, editEvent);
+      events.splice(parseInt(editEvent.id) - 1, 1, editEvent);
 
       location.hash = "#/event/editing/success";
       localStorage.setItem('events', JSON.stringify(events));
